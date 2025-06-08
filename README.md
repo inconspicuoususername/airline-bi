@@ -22,13 +22,13 @@ This project simulates a real-world business intelligence scenario where data fr
 2. Loads this data into a data warehouse
 3. Creates star schemas for analytical queries
 4. Handles orchestration through Prefect for scheduled incremental loads.
-- ![image2.png](images/prefect.png)
+![image2.png](images/prefect.png)
 4. Handles sending push notifications on loads.
-- ![image1.png](images/notification.png)
+![image1.png](images/notification.png)
 5. Provides visualization capabilities through Metabase
-- ![image3.png](images/sample_metabase_q_1.png)
-- ![image3.png](images/sample_metabase_q_2.png)
-- ![image4.png](images/metabase_dash.png)
+![image3.png](images/sample_metabase_q_1.png)
+![image3.png](images/sample_metabase_q_2.png)
+![image4.png](images/metabase_dash.png)
 (full Metabase dashboard found in images/metabase_dashboard.pdf)
 
 ## Architecture
