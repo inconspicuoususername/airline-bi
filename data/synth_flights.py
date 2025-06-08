@@ -4,8 +4,8 @@ from bisect import bisect_right, insort
 from collections import defaultdict
 from datetime import datetime, timedelta
 from faker import Faker
-from model.reldb import Flight, FlightCabinCrew, FlightStatusEnum
-from model.reldb import FlightBooking
+from model.reldb import Flight, FlightCabinCrew, FlightBooking
+from model.common import FlightStatusEnum
 
 # Constants
 FLIGHT_DURATION = timedelta(hours=2, minutes=30)

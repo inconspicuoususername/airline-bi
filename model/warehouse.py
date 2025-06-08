@@ -10,7 +10,9 @@ Warehouse uses SCD Type 2 for all tables.
 
 from sqlalchemy import Boolean, DateTime, Float, ForeignKey, Integer, MetaData, String
 from sqlalchemy.orm import DeclarativeBase, mapped_column, Mapped
+from sqlalchemy.dialects.postgresql import ENUM
 
+from model import common
 import constants
 
 
@@ -70,13 +72,17 @@ class Flight(Base):
     flight_id: Mapped[int] = mapped_column(Integer)
     flight_number: Mapped[str] = mapped_column(String)
     departure_airport_sk: Mapped[int] = mapped_column(Integer, ForeignKey('airports.airport_sk'))
+    departure_airport_id: Mapped[int] = mapped_column(Integer)
     arrival_airport_sk: Mapped[int] = mapped_column(Integer, ForeignKey('airports.airport_sk'))
+    arrival_airport_id: Mapped[int] = mapped_column(Integer)
     departure_time: Mapped[DateTime] = mapped_column(DateTime)
     arrival_time: Mapped[DateTime] = mapped_column(DateTime)
     delay_minutes: Mapped[int] = mapped_column(Integer)
-    status: Mapped[str] = mapped_column(String)
+    status: Mapped[common.FlightStatusEnum] = mapped_column(ENUM('scheduled', 'delayed', 'cancelled', name="flight_status"))
     pilot_sk: Mapped[int] = mapped_column(Integer, ForeignKey('pilots.pilot_sk'))
+    pilot_id: Mapped[int] = mapped_column(Integer)
     copilot_sk: Mapped[int] = mapped_column(Integer, ForeignKey('pilots.pilot_sk'))
+    copilot_id: Mapped[int] = mapped_column(Integer)
     airplane_sk: Mapped[int] = mapped_column(Integer, ForeignKey('airplanes.airplane_sk'))
     is_ferry_flight: Mapped[bool] = mapped_column(Boolean)
     estimated_flight_hours: Mapped[float] = mapped_column(Float)
@@ -86,7 +92,9 @@ class FlightCabinCrew(Base):
     flight_cabin_crew_sk: Mapped[int] = mapped_column(Integer, primary_key=True)
     flight_cabin_crew_id: Mapped[int] = mapped_column(Integer)
     flight_sk: Mapped[int] = mapped_column(Integer, ForeignKey('flights.flight_sk'))
+    flight_id: Mapped[int] = mapped_column(Integer)
     cabin_crew_sk: Mapped[int] = mapped_column(Integer, ForeignKey('cabin_crew.cabin_crew_sk'))
+    cabin_crew_id: Mapped[int] = mapped_column(Integer)
 
 class FlightBooking(Base):
     __tablename__ = 'flight_bookings'
@@ -100,7 +108,9 @@ class AirlineReview(Base):
     __tablename__ = 'airline_reviews'
     airline_review_sk: Mapped[int] = mapped_column(Integer, primary_key=True)
     flight_sk: Mapped[int] = mapped_column(Integer, ForeignKey('flights.flight_sk'))
+    flight_id: Mapped[int] = mapped_column(Integer)
     customer_sk: Mapped[int] = mapped_column(Integer, ForeignKey('customers.customer_sk'))
+    customer_id: Mapped[int] = mapped_column(Integer)
     seat_class: Mapped[str] = mapped_column(String)
     content: Mapped[str] = mapped_column(String)
     rating: Mapped[float] = mapped_column(Float)

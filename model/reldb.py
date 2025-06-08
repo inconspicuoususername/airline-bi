@@ -11,6 +11,7 @@ from sqlalchemy.orm import DeclarativeBase, mapped_column, Mapped
 from sqlalchemy.dialects.postgresql import ENUM
 from sqlalchemy import MetaData
 import constants
+from model import common
 
 # Metadata is an sqlalchemy abstraction that contains info such as the pg schema name
 # When reflecting tables into the database, the schema name is used to determine which schema to reflect the table into
@@ -67,11 +68,6 @@ class Airplane(Base):
     #         "ferry_flight": is_ferry,
     #         "airplane_id": airplane,
 
-class FlightStatusEnum(SAEnum):
-    SCHEDULED = "scheduled"
-    DELAYED = "delayed"
-    CANCELLED = "cancelled"
-
 class Flight(Base):
     __tablename__ = 'flights'
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -81,7 +77,7 @@ class Flight(Base):
     departure_time: Mapped[DateTime] = mapped_column(DateTime)
     arrival_time: Mapped[DateTime] = mapped_column(DateTime, nullable=True)
     delay_minutes: Mapped[int] = mapped_column(Integer)
-    status: Mapped[FlightStatusEnum] = mapped_column(ENUM('scheduled', 'delayed', 'cancelled', name="flight_status"))
+    status: Mapped[common.FlightStatusEnum] = mapped_column(ENUM('scheduled', 'delayed', 'cancelled', name="flight_status"))
     pilot_id: Mapped[int] = mapped_column(Integer, ForeignKey('pilots.id'), nullable=True)
     copilot_id: Mapped[int] = mapped_column(Integer, ForeignKey('pilots.id'), nullable=True)
     airplane_id: Mapped[int] = mapped_column(Integer, ForeignKey('airplanes.id'))

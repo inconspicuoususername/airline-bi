@@ -1,7 +1,9 @@
 
 DATABASE_URL = "postgresql://davud:password@localhost:5432/airline_db"
+
 AIRLINE_SCHEMA = "airline"
 WAREHOUSE_SCHEMA = "warehouse"
+CSV_STAGING_SCHEMA = "csv_staging"
 
 WAREHOUSE_RELDB_SOURCE_ID = 1
 WAREHOUSE_CSV_SOURCE_ID = 2

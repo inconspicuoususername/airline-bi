@@ -2,7 +2,8 @@ import math
 import random
 import pandas as pd
 from data import synth_flights
-from model.reldb import Base, FlightStatusEnum, Pilot, CabinCrew, Airport, Customer, Flight, FlightBooking, FlightCabinCrew, Airplane
+from model import common
+from model.reldb import Base, Pilot, CabinCrew, Airport, Customer, Flight, FlightBooking, FlightCabinCrew, Airplane
 from faker import Faker
 import database
 import database.reldb as reldb
@@ -242,7 +243,7 @@ def synthesize_reldb(
 
     max_customer_id = session.execute(text("SELECT MAX(id) FROM airline.customers")).scalar()
     cabin_crew_ids = [c.id for c in session.query(CabinCrew).all()]
-    flight_id_dep_arr = [(f.id, f.departure_time, f.arrival_time) for f in session.query(Flight).from_statement(select(Flight.id, Flight.departure_time, Flight.arrival_time).where(Flight.status == FlightStatusEnum.SCHEDULED))]
+    flight_id_dep_arr = [(f.id, f.departure_time, f.arrival_time) for f in session.query(Flight).from_statement(select(Flight.id, Flight.departure_time, Flight.arrival_time).where(Flight.status == common.FlightStatusEnum.SCHEDULED))]
     crew_schedule = manager.defaultdict(list)
     customer_schedule = manager.defaultdict(list)
 
