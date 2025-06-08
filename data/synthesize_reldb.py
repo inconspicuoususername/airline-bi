@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+
+"""
+Main file for synthesizing the operational database.
+"""
+
 import math
 import random
 import pandas as pd
@@ -12,6 +18,9 @@ from sqlalchemy import select, text
 from multiprocessing.managers import SyncManager, DictProxy
 from collections import defaultdict
 
+
+# multiprocessing manager for defaultdict
+# implements mutexes et al for thread safety by default
 class CustomMPManager(SyncManager):
     defaultdict = defaultdict
 

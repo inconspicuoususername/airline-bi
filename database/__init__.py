@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 """
-This file contains database utilities.
+Database utilities for schema management.
+Used for all databases.
 """
 
 import sqlalchemy

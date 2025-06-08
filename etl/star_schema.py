@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+
+"""
+ETL for the star schema.
+"""
+
 import datetime
 import sqlalchemy
 import sqlalchemy.orm

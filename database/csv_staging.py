@@ -1,3 +1,10 @@
+#!/usr/bin/env python3
+
+"""
+Schema for the csv staging database.
+Used for a single table (airline_reviews) to simplify ETL for review csv files
+"""
+
 from sqlalchemy import MetaData, Integer, String, DateTime, Boolean, Float, create_engine
 from sqlalchemy.orm import DeclarativeBase, mapped_column
 from datetime import datetime

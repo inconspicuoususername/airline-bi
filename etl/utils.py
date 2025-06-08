@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+
+"""
+Utility functions for ETL.
+"""
+
 from datetime import datetime
 import sqlalchemy
 from sqlalchemy import or_

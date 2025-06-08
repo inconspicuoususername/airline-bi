@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+
+"""
+This file contains the database models for the star schema.
+The star schema is the target database for the airline ETL process.
+"""
+
+
 import constants
 from sqlalchemy import (
     Index, Integer, String, Float, Boolean, DateTime, ForeignKey, MetaData

@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+
+"""
+ETL for the warehouse database.
+"""
+
 import constants
 import data.csv
 import database

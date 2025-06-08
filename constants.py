@@ -1,5 +1,23 @@
+#!/usr/bin/env python3
 
-DATABASE_URL = "postgresql://davud:password@localhost:5432/airline_db"
+"""
+Constands and environment variables.
+"""
+
+import dotenv
+import os
+
+dotenv.load_dotenv()
+
+def require_env(key: str) -> str:
+    value = os.getenv(key)
+    if value is None:
+        raise EnvironmentError(f"Missing required environment variable: {key}")
+    return value
+
+DATABASE_URL = require_env("DATABASE_URL")
+BOT_TOKEN = require_env("SLACK_BOT_TOKEN")
+CHANNEL = require_env("SLACK_CHANNEL")
 
 AIRLINE_SCHEMA = "airline"
 WAREHOUSE_SCHEMA = "warehouse"

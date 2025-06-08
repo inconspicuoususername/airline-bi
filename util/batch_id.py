@@ -1,4 +1,8 @@
+#!/usr/bin/env python3
 
+"""
+Utility functions for batch id management.
+"""
 
 def get_batch_id() -> int:
     with open("batch", "r") as f:

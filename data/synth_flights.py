@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+
+"""
+File containing functions for synthesizing flight data for the op db.
+"""
+
 from typing import Union, overload, override
 import random
 from bisect import bisect_right, insort
