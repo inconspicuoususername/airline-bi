@@ -1,15 +1,18 @@
 
 
-from etl.star_schema import incremental_load_star_schema
-from etl.warehouse import incremental_load_warehouse
+from data import synthesize_reldb
+from etl.star_schema import full_load_star_schema, incremental_load_star_schema
+from etl.warehouse import full_load_warehouse_2, incremental_load_warehouse
 import database
 import database.warehouse as whdb
 import database.star_schema as star_db
 
 import constants
 
-database.ensure_schema(whdb.engine,whdb.metadata)
-database.ensure_schema(star_db.engine,star_db.metadata)
+synthesize_reldb.synthesize_reldb()
 
-incremental_load_warehouse(5)
+full_load_warehouse_2(1)
+full_load_star_schema(1)
+
+incremental_load_warehouse(2)
 incremental_load_star_schema()

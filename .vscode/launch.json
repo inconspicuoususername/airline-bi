@@ -1,0 +1,34 @@
+{
+  "configurations": [
+    {
+      "name": "Synthesize RelDB",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "data.synthesize_reldb"
+    },
+    {
+      "name": "Merge CSV",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "data.csv"
+    },
+    {
+      "name": "Warehouse ETL",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "etl.warehouse"
+    },
+    {
+      "name": "Star Schema ETL",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "etl.star_schema"
+    },
+    {
+      "name": "Index",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "index"
+    }
+  ]
+}

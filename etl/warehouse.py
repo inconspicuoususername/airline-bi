@@ -451,6 +451,8 @@ def full_load_warehouse(
     warehouse_session.execute(insert_stmt)
 
     print(" +++ Flight bookings table loaded successfully +++ ")
+
+    incremental_load_csv_staging(insert_id, "data/output/reviews.csv")
     print(" +++ Full load of warehouse completed successfully +++ ")
 
     warehouse_session.commit()
@@ -567,6 +569,8 @@ def incremental_load_warehouse(
         warehouse_session.execute(insert_stmt)
         print(f" +++ Incremental load of table: {table_name} completed successfully +++ ")
 
+
+    incremental_load_csv_staging(batch_id, "data/output/reviews.csv")
     print(" +++ Incremental load of warehouse completed successfully +++ ")
 
     warehouse_session.commit()
@@ -725,4 +729,4 @@ if __name__ == "__main__":
 
     reset_warehouse_schema(warehouse.engine, warehouse.metadata)
     incremental_load_warehouse(2)
-    incremental_load_csv_staging(2, "data/output/reviews.csv")
+    # incremental_load_csv_staging(2, "data/output/reviews.csv")
