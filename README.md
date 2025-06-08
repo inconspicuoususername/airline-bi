@@ -91,9 +91,20 @@ This will start:
 docker compose up -d
 ```
 
-2. Deploy the flow:
+2. Synthesize the database and csv
 ```bash
-python3 -m flows.initial.py
+python3 -m data.synthesize_reldb
+python3 -m data.csv
+```
+
+3. Run full load
+```bash
+python3 -m index
+```
+
+4. Deploy the flow for incremental loads:
+```bash
+python3 -m flows.initial
 ```
 
 3. Either wait for the flow to be scheduled or run the flow directly from the **Prefect Server dashboard**
