@@ -8,7 +8,7 @@ Warehouse uses SCD Type 2 for all tables.
 """
 
 
-from sqlalchemy import Boolean, DateTime, Float, ForeignKey, Integer, MetaData, String
+from sqlalchemy import Boolean, DateTime, Float, ForeignKey, Index, Integer, MetaData, String
 from sqlalchemy.orm import DeclarativeBase, mapped_column, Mapped
 from sqlalchemy.dialects.postgresql import ENUM
 
@@ -121,3 +121,39 @@ class AirlineReview(Base):
     inflight_entertainment: Mapped[int] = mapped_column(Integer)
     value_for_money: Mapped[int] = mapped_column(Integer)
     date_published: Mapped[DateTime] = mapped_column(DateTime)
+
+
+#indexes
+
+idx_pilot_sk = Index("idx_pilot_sk", Pilot.pilot_sk)
+idx_pilot_latest = Index("idx_pilot_latest", Pilot.pilot_sk, Pilot.end_date)
+
+idx_cabin_crew_sk = Index("idx_cabin_crew_sk", CabinCrew.cabin_crew_sk)
+idx_cabin_crew_latest = Index("idx_cabin_crew_latest", CabinCrew.cabin_crew_sk, CabinCrew.end_date)
+
+idx_customer_sk = Index("idx_customer_sk", Customer.customer_sk)
+idx_customer_latest = Index("idx_customer_latest", Customer.customer_sk, Customer.end_date)
+
+idx_airport_sk = Index("idx_airport_sk", Airport.airport_sk)
+idx_airport_latest = Index("idx_airport_latest", Airport.airport_sk, Airport.end_date)
+
+idx_airplane_sk = Index("idx_airplane_sk", Airplane.airplane_sk)
+idx_airplane_latest = Index("idx_airplane_latest", Airplane.airplane_sk, Airplane.end_date)
+
+idx_flight_sk = Index("idx_flight_sk", Flight.flight_sk)
+idx_flight_latest = Index("idx_flight_latest", Flight.flight_sk, Flight.end_date)
+
+idx_flight_cabin_crew_sk = Index("idx_flight_cabin_crew_sk", FlightCabinCrew.flight_cabin_crew_sk)
+idx_flight_cabin_crew_latest = Index("idx_flight_cabin_crew_latest", FlightCabinCrew.flight_cabin_crew_sk, FlightCabinCrew.end_date)
+
+
+idx_flight_booking_sk = Index("idx_flight_booking_sk", FlightBooking.flight_booking_sk)
+idx_flight_booking_incremental = Index("idx_flight_booking_incremental", FlightBooking.end_date, FlightBooking.flight_booking_sk)
+idx_flight_booking_latest = Index("idx_flight_booking_latest", FlightBooking.flight_booking_sk, FlightBooking.end_date)
+idx_flight_booking_flight_sk = Index("idx_flight_booking_flight_sk", FlightBooking.flight_sk)
+idx_flight_booking_customer_sk = Index("idx_flight_booking_customer_sk", FlightBooking.customer_sk)
+
+idx_airline_review_sk = Index("idx_airline_review_sk", AirlineReview.airline_review_sk)
+idx_airline_review_latest = Index("idx_airline_review_latest", AirlineReview.airline_review_sk, AirlineReview.end_date)
+idx_airline_review_flight_sk = Index("idx_airline_review_flight_sk", AirlineReview.flight_sk)
+idx_airline_review_customer_sk = Index("idx_airline_review_customer_sk", AirlineReview.customer_sk)

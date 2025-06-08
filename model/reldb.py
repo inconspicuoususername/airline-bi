@@ -96,3 +96,6 @@ class FlightBooking(Base):
     flight_id: Mapped[int] = mapped_column(Integer, ForeignKey('flights.id'))
     customer_id: Mapped[int] = mapped_column(Integer, ForeignKey('customers.id'))
     seat_number: Mapped[str] = mapped_column(String)
+
+
+#indexes

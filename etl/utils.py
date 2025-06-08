@@ -31,6 +31,8 @@ pk_remaps = {
     'airline_reviews': {}
 }
 
+
+#used for scd t2
 def generate_diff_condition(
         warehouse_alias: sqlalchemy.Table,
         operational_alias: sqlalchemy.Table,
@@ -45,6 +47,8 @@ def generate_diff_condition(
     # conditions = []
 
     # goal: if wh represents id as e.g. pilot_id, and op represents id as id, then we need to remap the columns
+    # keeping pks is not necessary, but other columns may be called the same, which may represent fks, and those
+    # must be kept in mind to keep scd working
     comparison_cols = []
 
     for wh_col in warehouse_alias.columns.keys():
