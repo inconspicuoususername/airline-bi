@@ -14,8 +14,8 @@ from model.reldb import Flight, FlightCabinCrew, FlightBooking
 from model.common import FlightStatusEnum
 
 # Constants
-FLIGHT_DURATION = timedelta(hours=2, minutes=30)
-TURNAROUND_TIME = timedelta(minutes=30)
+FLIGHT_DURATION = timedelta(hours=3, minutes=30)
+TURNAROUND_TIME = timedelta(hours=1, minutes=30)
 MAX_DELAY = timedelta(hours=2)
 CANCELLATION_PROBABILITY = 0.02
 FERRY_FLIGHT_PROBABILITY = 0.1
@@ -78,7 +78,7 @@ def flight_producer(
     base_day = datetime(2024, 1, 1) + timedelta(days=batch_offset)
 
     for i in range(batch_size):
-        base_dep_time = base_day + timedelta(minutes=15 * i)
+        base_dep_time = base_day + timedelta(hours= i)
 
         # Choose an airplane that can fly from its current location
         viable_airplanes = [

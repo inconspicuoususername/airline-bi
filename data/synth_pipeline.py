@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+
+"""
+Overcomplicated pipeline for parallelized data generation.
+This is mainly used for synthesizing data for the operational database in a timely manner.
+Multiprocessing is used as opposed to threading to avoid GIL issues.
+"""
+
 from typing_extensions import ParamSpec
 import multiprocessing as mp
 from multiprocessing.sharedctypes import Synchronized

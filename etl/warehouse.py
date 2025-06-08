@@ -29,6 +29,11 @@ from datetime import datetime
 #     "flight_cabin_crew": reldb_model.FlightCabinCrew,
 # }
 
+departure_airport = sqlalchemy.orm.aliased(warehouse_model.Airport, name="departure_airport")
+arrival_airport = sqlalchemy.orm.aliased(warehouse_model.Airport, name="arrival_airport")
+pilot = sqlalchemy.orm.aliased(warehouse_model.Pilot, name="pilot")
+copilot = sqlalchemy.orm.aliased(warehouse_model.Pilot, name="copilot")
+
 select_map: dict[str, sqlalchemy.Select] = {
     'pilots': sqlalchemy.select(
         reldb_model.Pilot.id.label("pilot_id"),
@@ -61,39 +66,39 @@ select_map: dict[str, sqlalchemy.Select] = {
         reldb_model.Airplane.maintenance_days,
     ),
     'flights': sqlalchemy.select(
-        reldb_model.Flight.id.label("flight_id"),
-        reldb_model.Flight.flight_number,
-        warehouse_model.Airport.airport_sk.label("departure_airport_sk"),
-        reldb_model.Flight.departure_airport_id.label("departure_airport_id"),
-        warehouse_model.Airport.airport_sk.label("arrival_airport_sk"),
-        reldb_model.Flight.arrival_airport_id.label("arrival_airport_id"),
-        reldb_model.Flight.departure_time,
-        reldb_model.Flight.arrival_time,
-        reldb_model.Flight.delay_minutes,
-        reldb_model.Flight.status,
-        warehouse_model.Pilot.pilot_sk.label("pilot_sk"),
-        reldb_model.Flight.pilot_id.label("pilot_id"),
-        warehouse_model.Pilot.pilot_sk.label("copilot_sk"),
-        reldb_model.Flight.copilot_id.label("copilot_id"),
-        warehouse_model.Airplane.airplane_sk.label("airplane_sk"),
-        reldb_model.Flight.is_ferry_flight,
-        reldb_model.Flight.estimated_flight_hours,
-    ).join(
-        warehouse_model.Airport,
-        sqlalchemy.or_(
-            reldb_model.Flight.departure_airport_id == warehouse_model.Airport.airport_id,
-            reldb_model.Flight.arrival_airport_id == warehouse_model.Airport.airport_id,
-        )
-    ).join(
-        warehouse_model.Pilot,
-        sqlalchemy.or_(
-            reldb_model.Flight.pilot_id == warehouse_model.Pilot.pilot_id,
-            reldb_model.Flight.copilot_id == warehouse_model.Pilot.pilot_id,
-        )
-    ).join(
-        warehouse_model.Airplane,
-        reldb_model.Flight.airplane_id == warehouse_model.Airplane.airplane_id,
-    ),
+            reldb_model.Flight.id.label("flight_id"),
+            reldb_model.Flight.flight_number,
+            departure_airport.airport_sk.label("departure_airport_sk"),
+            departure_airport.airport_id.label("departure_airport_id"),
+            arrival_airport.airport_sk.label("arrival_airport_sk"),
+            arrival_airport.airport_id.label("arrival_airport_id"),
+            reldb_model.Flight.departure_time,
+            reldb_model.Flight.arrival_time,
+            reldb_model.Flight.delay_minutes,
+            reldb_model.Flight.status,
+            pilot.pilot_sk.label("pilot_sk"),
+            pilot.pilot_id.label("pilot_id"),
+            copilot.pilot_sk.label("copilot_sk"),
+            copilot.pilot_id.label("copilot_id"),
+            warehouse_model.Airplane.airplane_sk.label("airplane_sk"),
+            reldb_model.Flight.is_ferry_flight,
+            reldb_model.Flight.estimated_flight_hours,
+        ).join(
+            departure_airport,
+            reldb_model.Flight.departure_airport_id == departure_airport.airport_id,
+        ).join(
+            arrival_airport,
+            reldb_model.Flight.arrival_airport_id == arrival_airport.airport_id,
+        ).join(
+            pilot,
+            reldb_model.Flight.pilot_id == pilot.pilot_id,
+        ).join(
+            copilot,
+            reldb_model.Flight.copilot_id == copilot.pilot_id,
+        ).join(
+            warehouse_model.Airplane,
+            reldb_model.Flight.airplane_id == warehouse_model.Airplane.airplane_id,
+        ),
     'flight_cabin_crew': sqlalchemy.select(
         warehouse_model.CabinCrew.cabin_crew_sk,
         warehouse_model.CabinCrew.cabin_crew_id,
@@ -175,10 +180,12 @@ def full_load_warehouse_2(
             warehouse_table,
         )
 
+        print(insert_stmt)
         warehouse_session.execute(insert_stmt)
         print(f" +++ {table_name} table loaded successfully +++ ")
 
     
+    incremental_load_csv_staging(insert_id, "data/output/reviews.csv")
     print(" +++ Full load of warehouse completed successfully +++ ")
 
     warehouse_session.commit()

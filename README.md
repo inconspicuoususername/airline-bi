@@ -21,7 +21,15 @@ This project simulates a real-world business intelligence scenario where data fr
 1. Generates synthetic data for a relational database and CSV files
 2. Loads this data into a data warehouse
 3. Creates star schemas for analytical queries
-4. Provides visualization capabilities through Metabase
+4. Handles orchestration through Prefect for scheduled incremental loads.
+- ![image2.png](images/prefect.png)
+4. Handles sending push notifications on loads.
+- ![image1.png](images/notification.png)
+5. Provides visualization capabilities through Metabase
+- ![image3.png](images/sample_metabase_q_1.png)
+- ![image3.png](images/sample_metabase_q_2.png)
+- ![image4.png](images/metabase_dash.png)
+
 
 ## Architecture
 
@@ -33,7 +41,6 @@ The project uses a modern data stack:
 - **ETL Orchestration**: Prefect
 - **Data Warehouse**: PostgreSQL
 - **Visualization**: Metabase
-- **Object Storage**: MinIO (for storing CSV files)
 
 ## Prerequisites
 
@@ -69,7 +76,6 @@ This will start:
 - PostgreSQL database
 - Prefect server and worker
 - Metabase
-- MinIO
 
 ## Usage
 
@@ -77,7 +83,6 @@ This will start:
 
 - **Prefect UI**: http://localhost:4200
 - **Metabase**: http://localhost:3000
-- **MinIO Console**: http://localhost:9001
 
 ### Running the ETL Pipeline
 

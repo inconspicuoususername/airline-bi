@@ -18,6 +18,7 @@ def require_env(key: str) -> str:
 DATABASE_URL = require_env("DATABASE_URL")
 BOT_TOKEN = require_env("SLACK_BOT_TOKEN")
 CHANNEL = require_env("SLACK_CHANNEL")
+PREFECT_API_URL = require_env("PREFECT_API_URL")
 
 AIRLINE_SCHEMA = "airline"
 WAREHOUSE_SCHEMA = "warehouse"

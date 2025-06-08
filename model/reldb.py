@@ -5,7 +5,7 @@ This file contains the database models for the operational airline database.
 """
 
 from sqlalchemy import (
-    DateTime, Enum as SAEnum, Integer, String, ForeignKey, Float, Boolean
+    DateTime, Enum as SAEnum, Integer, String, ForeignKey, Float, Boolean, Index
 )
 from sqlalchemy.orm import DeclarativeBase, mapped_column, Mapped
 from sqlalchemy.dialects.postgresql import ENUM
@@ -99,3 +99,16 @@ class FlightBooking(Base):
 
 
 #indexes
+
+idx_flight_id = Index('idx_flight_id', Flight.id)
+idx_flight_number = Index('idx_flight_number', Flight.flight_number)
+idx_flights_dep_arr = Index('idx_flights_dep_arr', Flight.departure_airport_id, Flight.arrival_airport_id)
+idx_flights_pilot_copilot = Index('idx_flights_pilot_copilot', Flight.pilot_id, Flight.copilot_id)
+idx_flights_dep_time = Index('idx_flights_dep_time', Flight.departure_time)
+idx_flights_status = Index('idx_flights_status', Flight.status)
+
+idx_flight_cabin_crew = Index('idx_flight_cabin_crew', FlightCabinCrew.flight_id, FlightCabinCrew.cabin_crew_id)
+
+idx_flight_bookings = Index('idx_flight_bookings', FlightBooking.flight_id)
+idx_flight_bookings_customer = Index('idx_flight_bookings_customer', FlightBooking.customer_id)
+idx_flight_bookings_unique = Index('idx_flight_bookings_unique', FlightBooking.flight_id, FlightBooking.customer_id)
