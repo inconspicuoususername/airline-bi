@@ -1,14 +1,14 @@
 import prefect
-from etl.warehouse import incremental_load_warehouse
-from etl.star_schema import incremental_load_star_schema
+from etl.warehouse import full_load_warehouse_2, incremental_load_warehouse
+from etl.star_schema import full_load_star_schema, incremental_load_star_schema
 from util.batch_id import get_batch_id, set_batch_id
 
 @prefect.task(name="initial-warehouse-load")
 def initial_load(
     batch_id: int,
 ):
-    incremental_load_warehouse(batch_id)
-    incremental_load_star_schema()
+    full_load_warehouse_2(batch_id)
+    full_load_star_schema(batch_id)
 
 @prefect.task(name="incremental-warehouse-load")
 def incremental_load(
