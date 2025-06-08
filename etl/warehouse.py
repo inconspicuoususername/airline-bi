@@ -184,11 +184,11 @@ def full_load_warehouse_2(
         warehouse_session.execute(insert_stmt)
         print(f" +++ {table_name} table loaded successfully +++ ")
 
-    
+    warehouse_session.commit()
+
     incremental_load_csv_staging(insert_id, "data/output/reviews.csv")
     print(" +++ Full load of warehouse completed successfully +++ ")
 
-    warehouse_session.commit()
 
 def full_load_warehouse(
         insert_id: int,

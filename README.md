@@ -29,7 +29,7 @@ This project simulates a real-world business intelligence scenario where data fr
 - ![image3.png](images/sample_metabase_q_1.png)
 - ![image3.png](images/sample_metabase_q_2.png)
 - ![image4.png](images/metabase_dash.png)
-
+(full Metabase dashboard found in images/metabase_dashboard.pdf)
 
 ## Architecture
 
