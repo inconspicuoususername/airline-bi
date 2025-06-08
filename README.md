@@ -1,6 +1,6 @@
-# Business Intelligence ETL Project
+# Airline Business Intelligence Project
 
-This project implements a complete ETL (Extract, Transform, Load) pipeline for a business intelligence system. It demonstrates the process of extracting data from multiple sources (relational database and CSV files), transforming it into a data warehouse, and creating star schemas for analytical purposes. The project uses Prefect for workflow orchestration and Metabase for data visualization.
+This project implements a complete ETL (Extract, Transform, Load) pipeline for an airline's business intelligence system. It demonstrates the process of extracting data from multiple sources (airline's operational database and CSV files), transforming it into a data warehouse, and creating star schemas for analytical purposes.
 
 ## Table of Contents
 - [Project Overview](#project-overview)
@@ -18,7 +18,7 @@ This project implements a complete ETL (Extract, Transform, Load) pipeline for a
 
 This project simulates a real-world business intelligence scenario where data from multiple sources needs to be integrated and transformed for analytical purposes. The system:
 
-1. Generates synthetic data for a relational database and CSV files
+1. Generates synthetic data for a relational database and CSV files representing an airline's data stores
 2. Loads this data into a data warehouse
 3. Creates star schemas for analytical queries
 4. Handles orchestration through Prefect for scheduled incremental loads.
