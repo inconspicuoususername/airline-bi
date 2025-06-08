@@ -52,8 +52,8 @@ The project uses a modern data stack:
 
 1. Clone the repository:
 ```bash
-git clone [https://github.com/inconspicuoususername/airline-bi/tree/main]
-cd bi-project
+git clone https://github.com/inconspicuoususername/airline-bi
+cd airline-bi
 ```
 
 2. Create and activate a virtual environment:
@@ -262,15 +262,7 @@ The project implements a comprehensive star schema for airline analytics:
 
 Metabase is used for data visualization:
 
+### Usage
 1. Access Metabase at http://localhost:3000
 2. Set up a new database connection to the warehouse
 3. Create dashboards and visualizations using the star schemas
-
-## Development
-
-### Adding New Features
-
-1. Create new models in the `model/` directory
-2. Add ETL logic in the `etl/` directory
-3. Create new Prefect flows in the `flows/` directory
-4. Update the documentation
